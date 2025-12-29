@@ -1,0 +1,102 @@
+{
+  "name": "dbt-runner",
+  "displayName": "DBT Runner",
+  "description": "VS Code extension for running dbt projects with Snowflake key pair authentication",
+  "version": "0.1.0",
+  "publisher": "loves-data-engineering",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/pyproject.toml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dbt-runner.runDbt",
+        "title": "DBT: Run DBT Command"
+      },
+      {
+        "command": "dbt-runner.setupProject",
+        "title": "DBT: Setup Project (Poetry Install & DBT Deps)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "dbt-runner.runDbt",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d"
+      }
+    ],
+    "configuration": {
+      "title": "DBT Runner",
+      "properties": {
+        "dbtRunner.snowflakeAccounts": {
+          "type": "array",
+          "default": [],
+          "description": "Snowflake account configurations for key pair authentication",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Account name (e.g., 'loves_development', 'loves')"
+              },
+              "user": {
+                "type": "string",
+                "description": "Snowflake username"
+              },
+              "privateKeyPath": {
+                "type": "string",
+                "description": "Path to private key file"
+              },
+              "privateKeyPassphrase": {
+                "type": "string",
+                "description": "Private key passphrase (optional, can be left empty to prompt)"
+              }
+            }
+          }
+        },
+        "dbtRunner.environments": {
+          "type": "array",
+          "default": [
+            "dev",
+            "prod"
+          ],
+          "description": "Available dbt environments/targets"
+        },
+        "dbtRunner.autoSetupOnOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run poetry install and dbt deps when opening a dbt project"
+        },
+        "dbtRunner.dbtProjectPath": {
+          "type": "string",
+          "default": "dbt",
+          "description": "Relative path to dbt project directory from workspace root"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/vsce": "^3.7.1",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0"
+  }
+}
