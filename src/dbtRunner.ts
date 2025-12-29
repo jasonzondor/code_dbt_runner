@@ -9,6 +9,14 @@ export class DbtRunner {
         this.outputChannel = vscode.window.createOutputChannel('DBT Runner');
     }
 
+    private quotePath(pathString: string): string {
+        // Quote path if it contains spaces and isn't already quoted
+        if (pathString.includes(' ') && !pathString.startsWith('"')) {
+            return `"${pathString}"`;
+        }
+        return pathString;
+    }
+
     async runDbtCommand() {
         if (!vscode.workspace.workspaceFolders) {
             vscode.window.showErrorMessage('No workspace folder open');
@@ -170,8 +178,8 @@ export class DbtRunner {
 
         const commandParts = ['poetry', 'run', 'dbt', ...dbtCommand.split(' ')];
         
-        commandParts.push('--project-dir', fullDbtPath);
-        commandParts.push('--profiles-dir', path.join(fullDbtPath, 'profiles'));
+        commandParts.push('--project-dir', this.quotePath(fullDbtPath));
+        commandParts.push('--profiles-dir', this.quotePath(path.join(fullDbtPath, 'profiles')));
         commandParts.push('--target', environment);
         
         if (additionalParams.trim()) {
