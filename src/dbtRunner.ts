@@ -162,6 +162,7 @@ export class DbtRunner {
 
         const env = {
             ...process.env,
+            DBT_ACCOUNT: snowflakeConfig.account,
             DBT_USER: snowflakeConfig.user,
             DBT_PVK_PATH: snowflakeConfig.privateKeyPath,
             DBT_PVK_PASS: snowflakeConfig.privateKeyPassphrase || ''
@@ -184,7 +185,8 @@ export class DbtRunner {
         this.outputChannel.appendLine(`Running: ${fullCommand}`);
         this.outputChannel.appendLine(`Working directory: ${fullDbtPath}`);
         this.outputChannel.appendLine(`Environment: ${environment}`);
-        this.outputChannel.appendLine(`Snowflake Account: ${snowflakeConfig.name}`);
+        this.outputChannel.appendLine(`Configuration: ${snowflakeConfig.name}`);
+        this.outputChannel.appendLine(`Snowflake Account: ${snowflakeConfig.account}`);
         this.outputChannel.appendLine(`User: ${snowflakeConfig.user}`);
         this.outputChannel.appendLine('---\n');
 

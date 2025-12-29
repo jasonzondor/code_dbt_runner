@@ -42,23 +42,48 @@ A VS Code extension for managing and running dbt projects with Snowflake key pai
 
 ## Configuration
 
-### Quick Setup
+### Snowflake Accounts
+
+#### Option 1: Interactive Setup (Recommended)
+
+The easiest way to add Snowflake accounts:
+
+1. Open Command Palette: `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
+2. Type **"DBT: Add Snowflake Account"**
+3. Follow the prompts to enter:
+   - Display name for this configuration
+   - Snowflake account identifier (e.g., `xy12345.us-east-1`)
+   - Snowflake username
+   - Private key file path
+   - Whether to store passphrase (or be prompted at runtime)
+
+**Additional Commands:**
+- **"DBT: List Snowflake Accounts"** - View all configured accounts
+- **"DBT: Remove Snowflake Account"** - Remove an account
+
+#### Option 2: Manual JSON Configuration
+
+Alternatively, edit settings.json directly:
 
 1. Open Settings: `Ctrl+,` (or `Cmd+,` on Mac)
 2. Search for **"DBT Runner"**
-3. Configure the following settings:
-
-### Snowflake Accounts
-
-Click **"Edit in settings.json"** next to `Snowflake Accounts` and add your account configurations:
+3. Click **"Edit in settings.json"** next to `Snowflake Accounts`
 
 ```json
 {
   "dbtRunner.snowflakeAccounts": [
     {
-      "name": "dev_account",
+      "name": "Development",
+      "account": "xy12345.us-east-1",
       "user": "your_snowflake_username",
       "privateKeyPath": "/absolute/path/to/private_key.p8",
+      "privateKeyPassphrase": ""
+    },
+    {
+      "name": "Production",
+      "account": "ab67890.eu-west-1",
+      "user": "prod_user",
+      "privateKeyPath": "/absolute/path/to/prod_key.p8",
       "privateKeyPassphrase": ""
     }
   ]
@@ -66,10 +91,11 @@ Click **"Edit in settings.json"** next to `Snowflake Accounts` and add your acco
 ```
 
 **Field Descriptions:**
-- **`name`** (required): Display name for the account (e.g., "dev_account", "prod_account")
+- **`name`** (required): Display name for this configuration
+- **`account`** (required): Snowflake account identifier (e.g., `xy12345.us-east-1`, `myorg-myaccount`)
 - **`user`** (required): Your Snowflake username
 - **`privateKeyPath`** (required): Absolute path to your `.p8` private key file
-- **`privateKeyPassphrase`** (optional): Leave empty (`""`) to be prompted at runtime for better security
+- **`privateKeyPassphrase`** (optional): Leave empty (`""`) to be prompted at runtime
 
 ### Environments
 
@@ -131,6 +157,7 @@ your-project/
 
 The extension sets the following environment variables when running dbt commands:
 
+- `DBT_ACCOUNT`: Snowflake account identifier from configuration
 - `DBT_USER`: Snowflake username from configuration
 - `DBT_PVK_PATH`: Path to private key file
 - `DBT_PVK_PASS`: Private key passphrase
@@ -141,6 +168,7 @@ These should match the environment variables referenced in your `profiles.yml`:
 outputs:
   dev:
     type: snowflake
+    account: "{{ env_var('DBT_ACCOUNT') }}"
     user: "{{ env_var('DBT_USER') }}"
     private_key_path: "{{ env_var('DBT_PVK_PATH') }}"
     private_key_passphrase: "{{ env_var('DBT_PVK_PASS') }}"
@@ -148,8 +176,14 @@ outputs:
 
 ## Commands
 
+### DBT Operations
 - **DBT: Run DBT Command** (`dbt-runner.runDbt`): Execute a dbt command with interactive prompts
 - **DBT: Setup Project** (`dbt-runner.setupProject`): Run poetry install and dbt deps
+
+### Account Management
+- **DBT: Add Snowflake Account** (`dbt-runner.addSnowflakeAccount`): Interactively add a new Snowflake account
+- **DBT: Remove Snowflake Account** (`dbt-runner.removeSnowflakeAccount`): Remove an existing Snowflake account
+- **DBT: List Snowflake Accounts** (`dbt-runner.listSnowflakeAccounts`): View all configured accounts
 
 ## Requirements
 

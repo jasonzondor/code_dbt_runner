@@ -27,6 +27,18 @@
       {
         "command": "dbt-runner.setupProject",
         "title": "DBT: Setup Project (Poetry Install & DBT Deps)"
+      },
+      {
+        "command": "dbt-runner.addSnowflakeAccount",
+        "title": "DBT: Add Snowflake Account"
+      },
+      {
+        "command": "dbt-runner.removeSnowflakeAccount",
+        "title": "DBT: Remove Snowflake Account"
+      },
+      {
+        "command": "dbt-runner.listSnowflakeAccounts",
+        "title": "DBT: List Snowflake Accounts"
       }
     ],
     "keybindings": [
@@ -45,11 +57,16 @@
           "markdownDescription": "Configure Snowflake accounts for key pair authentication. Click 'Edit in settings.json' to add accounts.",
           "items": {
             "type": "object",
-            "required": ["name", "user", "privateKeyPath"],
+            "required": ["name", "account", "user", "privateKeyPath"],
             "properties": {
               "name": {
                 "type": "string",
-                "description": "Display name for this account",
+                "description": "Display name for this configuration",
+                "minLength": 1
+              },
+              "account": {
+                "type": "string",
+                "description": "Snowflake account identifier (e.g., xy12345.us-east-1)",
                 "minLength": 1
               },
               "user": {
