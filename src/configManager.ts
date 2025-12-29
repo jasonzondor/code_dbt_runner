@@ -4,17 +4,32 @@ import { SnowflakeConfig } from './types';
 export class ConfigManager {
     async addSnowflakeAccount(): Promise<void> {
         const name = await vscode.window.showInputBox({
-            prompt: 'Enter a display name for this Snowflake account',
+            prompt: 'Enter a display name for this configuration',
             placeHolder: 'e.g., Development, Production, Staging',
             validateInput: (value) => {
                 if (!value || value.trim().length === 0) {
-                    return 'Account name is required';
+                    return 'Display name is required';
                 }
                 return null;
             }
         });
 
         if (!name) {
+            return;
+        }
+
+        const account = await vscode.window.showInputBox({
+            prompt: 'Enter your Snowflake account identifier',
+            placeHolder: 'e.g., xy12345.us-east-1, myorg-myaccount',
+            validateInput: (value) => {
+                if (!value || value.trim().length === 0) {
+                    return 'Snowflake account identifier is required';
+                }
+                return null;
+            }
+        });
+
+        if (!account) {
             return;
         }
 
@@ -82,6 +97,7 @@ export class ConfigManager {
 
         const newAccount: SnowflakeConfig = {
             name: name.trim(),
+            account: account.trim(),
             user: user.trim(),
             privateKeyPath: privateKeyPath.trim(),
             privateKeyPassphrase
@@ -202,6 +218,7 @@ export class ConfigManager {
                 ${accounts.map(acc => `
                     <div class="account">
                         <div class="account-name">${acc.name}</div>
+                        <div class="account-detail"><span class="label">Account:</span> ${acc.account}</div>
                         <div class="account-detail"><span class="label">User:</span> ${acc.user}</div>
                         <div class="account-detail"><span class="label">Private Key:</span> ${acc.privateKeyPath}</div>
                         <div class="account-detail"><span class="label">Passphrase:</span> ${acc.privateKeyPassphrase ? '***' : '(prompt at runtime)'}</div>

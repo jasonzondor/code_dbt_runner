@@ -51,7 +51,8 @@ The easiest way to add Snowflake accounts:
 1. Open Command Palette: `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
 2. Type **"DBT: Add Snowflake Account"**
 3. Follow the prompts to enter:
-   - Account display name
+   - Display name for this configuration
+   - Snowflake account identifier (e.g., `xy12345.us-east-1`)
    - Snowflake username
    - Private key file path
    - Whether to store passphrase (or be prompted at runtime)
@@ -73,12 +74,14 @@ Alternatively, edit settings.json directly:
   "dbtRunner.snowflakeAccounts": [
     {
       "name": "Development",
+      "account": "xy12345.us-east-1",
       "user": "your_snowflake_username",
       "privateKeyPath": "/absolute/path/to/private_key.p8",
       "privateKeyPassphrase": ""
     },
     {
       "name": "Production",
+      "account": "ab67890.eu-west-1",
       "user": "prod_user",
       "privateKeyPath": "/absolute/path/to/prod_key.p8",
       "privateKeyPassphrase": ""
@@ -88,7 +91,8 @@ Alternatively, edit settings.json directly:
 ```
 
 **Field Descriptions:**
-- **`name`** (required): Display name for the account
+- **`name`** (required): Display name for this configuration
+- **`account`** (required): Snowflake account identifier (e.g., `xy12345.us-east-1`, `myorg-myaccount`)
 - **`user`** (required): Your Snowflake username
 - **`privateKeyPath`** (required): Absolute path to your `.p8` private key file
 - **`privateKeyPassphrase`** (optional): Leave empty (`""`) to be prompted at runtime
@@ -153,6 +157,7 @@ your-project/
 
 The extension sets the following environment variables when running dbt commands:
 
+- `DBT_ACCOUNT`: Snowflake account identifier from configuration
 - `DBT_USER`: Snowflake username from configuration
 - `DBT_PVK_PATH`: Path to private key file
 - `DBT_PVK_PASS`: Private key passphrase
@@ -163,6 +168,7 @@ These should match the environment variables referenced in your `profiles.yml`:
 outputs:
   dev:
     type: snowflake
+    account: "{{ env_var('DBT_ACCOUNT') }}"
     user: "{{ env_var('DBT_USER') }}"
     private_key_path: "{{ env_var('DBT_PVK_PATH') }}"
     private_key_passphrase: "{{ env_var('DBT_PVK_PASS') }}"
