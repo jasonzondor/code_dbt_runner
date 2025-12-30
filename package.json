@@ -2,7 +2,7 @@
   "name": "dbt-runner",
   "displayName": "DBT Runner",
   "description": "VS Code extension for running dbt projects with Snowflake key pair authentication",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "publisher": "jason-zondor",
   "repository": {
     "type": "git",
@@ -65,7 +65,12 @@
           "markdownDescription": "Configure Snowflake accounts for key pair authentication. Click 'Edit in settings.json' to add accounts.",
           "items": {
             "type": "object",
-            "required": ["name", "account", "user", "privateKeyPath"],
+            "required": [
+              "name",
+              "account",
+              "user",
+              "privateKeyPath"
+            ],
             "properties": {
               "name": {
                 "type": "string",
