@@ -56,6 +56,33 @@ export class DbtRunner {
         );
     }
 
+    async runProjectEvaluator() {
+        if (!vscode.workspace.workspaceFolders) {
+            vscode.window.showErrorMessage('No workspace folder open');
+            return;
+        }
+
+        const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+        const environment = await this.selectEnvironment();
+        if (!environment) {
+            return;
+        }
+
+        const snowflakeConfig = await this.getSnowflakeConfig(environment);
+        if (!snowflakeConfig) {
+            return;
+        }
+
+        await this.executeDbtCommand(
+            workspaceRoot,
+            environment,
+            'build',
+            '--selector dbt_project_evaluator',
+            snowflakeConfig
+        );
+    }
+
     private async selectEnvironment(): Promise<string | undefined> {
         const config = vscode.workspace.getConfiguration('dbtRunner');
         const environments = config.get<string[]>('environments', ['dev', 'prod']);

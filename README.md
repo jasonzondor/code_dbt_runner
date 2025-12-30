@@ -152,6 +152,19 @@ Run pre-commit checks on all files:
 
 **Note:** Make sure you've installed CI/CD packages during project setup by selecting the option when running "DBT Runner: Setup Project" and choosing the option "Yes - Include CI/CD packages (--with cicd)".
 
+### Run DBT Project Evaluator
+
+Run the dbt project evaluator to audit your dbt project:
+
+1. Open Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
+2. Type "DBT Runner: Run DBT Project Evaluator"
+3. Select the environment (dev, prod, etc.)
+4. Select the Snowflake account (if multiple configured)
+5. Enter private key passphrase (if not configured)
+6. This will run: `poetry run dbt build --selector dbt_project_evaluator`
+
+**Note:** Make sure you have [dbt-project-evaluator](https://github.com/dbt-labs/dbt-project-evaluator) installed in your dbt project's `packages.yml` file.
+
 ## Project Structure
 
 Your dbt projects should follow this structure:
@@ -195,6 +208,7 @@ outputs:
 - **DBT Runner: Run DBT Command** (`dbt-runner.runDbt`): Execute a dbt command with interactive prompts
 - **DBT Runner: Setup Project** (`dbt-runner.setupProject`): Run poetry install and dbt deps
 - **DBT Runner: Run Pre-Commit Checks** (`dbt-runner.runPreCommit`): Run pre-commit checks on all files
+- **DBT Runner: Run DBT Project Evaluator** (`dbt-runner.runProjectEvaluator`): Run dbt project evaluator to audit your dbt project
 
 ### Account Management
 - **DBT Runner: Add Snowflake Account** (`dbt-runner.addSnowflakeAccount`): Interactively add a new Snowflake account
