@@ -22,23 +22,23 @@
     "commands": [
       {
         "command": "dbt-runner.runDbt",
-        "title": "DBT: Run DBT Command"
+        "title": "DBT Runner: Run DBT Command"
       },
       {
         "command": "dbt-runner.setupProject",
-        "title": "DBT: Setup Project (Poetry Install & DBT Deps)"
+        "title": "DBT Runner: Setup Project (Poetry Install & DBT Deps)"
       },
       {
         "command": "dbt-runner.addSnowflakeAccount",
-        "title": "DBT: Add Snowflake Account"
+        "title": "DBT Runner: Add Snowflake Account"
       },
       {
         "command": "dbt-runner.removeSnowflakeAccount",
-        "title": "DBT: Remove Snowflake Account"
+        "title": "DBT Runner: Remove Snowflake Account"
       },
       {
         "command": "dbt-runner.listSnowflakeAccounts",
-        "title": "DBT: List Snowflake Accounts"
+        "title": "DBT Runner: List Snowflake Accounts"
       }
     ],
     "keybindings": [

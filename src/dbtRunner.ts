@@ -199,7 +199,7 @@ export class DbtRunner {
         this.outputChannel.appendLine('---\n');
 
         const terminal = vscode.window.createTerminal({
-            name: `DBT: ${dbtCommand}`,
+            name: `DBT Runner: ${dbtCommand}`,
             cwd: fullDbtPath,
             env: env
         });

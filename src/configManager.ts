@@ -168,7 +168,7 @@ export class ConfigManager {
         const accounts = config.get<SnowflakeConfig[]>('snowflakeAccounts', []);
 
         if (accounts.length === 0) {
-            vscode.window.showInformationMessage('No Snowflake accounts configured. Use "DBT: Add Snowflake Account" to add one.');
+            vscode.window.showInformationMessage('No Snowflake accounts configured. Use "DBT Runner: Add Snowflake Account" to add one.');
             return;
         }
 
