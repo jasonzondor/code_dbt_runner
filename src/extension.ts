@@ -35,13 +35,18 @@ export function activate(context: vscode.ExtensionContext) {
         await projectSetup.runPreCommit();
     });
 
+    const runProjectEvaluatorCommand = vscode.commands.registerCommand('dbt-runner.runProjectEvaluator', async () => {
+        await dbtRunner.runProjectEvaluator();
+    });
+
     context.subscriptions.push(
         runDbtCommand, 
         setupProjectCommand,
         addSnowflakeAccountCommand,
         removeSnowflakeAccountCommand,
         listSnowflakeAccountsCommand,
-        runPreCommitCommand
+        runPreCommitCommand,
+        runProjectEvaluatorCommand
     );
 
     if (vscode.workspace.workspaceFolders) {

@@ -43,6 +43,10 @@
       {
         "command": "dbt-runner.runPreCommit",
         "title": "DBT Runner: Run Pre-Commit Checks"
+      },
+      {
+        "command": "dbt-runner.runProjectEvaluator",
+        "title": "DBT Runner: Run DBT Project Evaluator"
       }
     ],
     "keybindings": [
