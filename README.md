@@ -45,7 +45,7 @@ A VS Code extension for managing and running dbt projects with Snowflake key pai
 The easiest way to add Snowflake accounts:
 
 1. Open Command Palette: `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
-2. Type **"DBT: Add Snowflake Account"**
+2. Type **"DBT Runner: Add Snowflake Account"**
 3. Follow the prompts to enter:
    - Display name for this configuration
    - Snowflake account identifier (e.g., `xy12345.us-east-1`)
@@ -54,8 +54,8 @@ The easiest way to add Snowflake accounts:
    - Whether to store passphrase (or be prompted at runtime)
 
 **Additional Commands:**
-- **"DBT: List Snowflake Accounts"** - View all configured accounts
-- **"DBT: Remove Snowflake Account"** - Remove an account
+- **"DBT Runner: List Snowflake Accounts"** - View all configured accounts
+- **"DBT Runner: Remove Snowflake Account"** - Remove an account
 
 #### Option 2: Manual JSON Configuration
 
@@ -115,7 +115,7 @@ Configure your dbt target environments (must match targets in your `profiles.yml
 Run the setup command to install dependencies:
 
 1. Open Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P`)
-2. Type "DBT: Setup Project"
+2. Type "DBT Runner: Setup Project"
 3. This will run:
    - `poetry lock`
    - `poetry install`
@@ -124,7 +124,7 @@ Run the setup command to install dependencies:
 ### Run DBT Commands
 
 1. Use keyboard shortcut `Ctrl+Shift+D` (or `Cmd+Shift+D`)
-   - OR open Command Palette and type "DBT: Run DBT Command"
+   - OR open Command Palette and type "DBT Runner: Run DBT Command"
 2. Select the environment (dev, prod, etc.)
 3. Select the dbt command (run, build, test, etc.)
 4. Enter any additional parameters (optional)
@@ -173,13 +173,13 @@ outputs:
 ## Commands
 
 ### DBT Operations
-- **DBT: Run DBT Command** (`dbt-runner.runDbt`): Execute a dbt command with interactive prompts
-- **DBT: Setup Project** (`dbt-runner.setupProject`): Run poetry install and dbt deps
+- **DBT Runner: Run DBT Command** (`dbt-runner.runDbt`): Execute a dbt command with interactive prompts
+- **DBT Runner: Setup Project** (`dbt-runner.setupProject`): Run poetry install and dbt deps
 
 ### Account Management
-- **DBT: Add Snowflake Account** (`dbt-runner.addSnowflakeAccount`): Interactively add a new Snowflake account
-- **DBT: Remove Snowflake Account** (`dbt-runner.removeSnowflakeAccount`): Remove an existing Snowflake account
-- **DBT: List Snowflake Accounts** (`dbt-runner.listSnowflakeAccounts`): View all configured accounts
+- **DBT Runner: Add Snowflake Account** (`dbt-runner.addSnowflakeAccount`): Interactively add a new Snowflake account
+- **DBT Runner: Remove Snowflake Account** (`dbt-runner.removeSnowflakeAccount`): Remove an existing Snowflake account
+- **DBT Runner: List Snowflake Accounts** (`dbt-runner.listSnowflakeAccounts`): View all configured accounts
 
 ## Requirements
 
